@@ -150,4 +150,4 @@ This is a step-by-step implementation. Each framework will be implemented and te
 
 ## License
 
-This implementation follows the research paper's methodology and uses the Anveshana dataset which is publicly available at: https://huggingface.co/datasets/manojbalaji1/anveshana 
+This implementation follows the research paper's methodology and uses the Anveshana dataset which is publicly available at: https://huggingface.co/datasets/manojbalaji1/anveshana
