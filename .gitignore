@@ -87,7 +87,8 @@ config.yaml
 .env.local
 .env.*.local
 
-# LaTeX auxiliary files
+# LaTeX files
+*.tex
 *.aux
 *.bbl
 *.blg
