@@ -70,8 +70,6 @@ Ancient language information retrieval presents unique challenges including scar
 
 \section{Introduction}
 
-This section introduces the challenges of Sanskrit-English cross-lingual information retrieval, outlines the limitations of current approaches, and presents our key contributions including cross-script transfer learning, contextual prompting, and parameter-efficient fine-tuning.
-
 The Sanskrit language repository encompasses extensive philosophical and cultural wisdom accumulated over three millennia. Despite increasing digital availability, the linguistic complexity of Sanskrit creates significant accessibility barriers for non-native speakers. Cross-Lingual Information Retrieval (CLIR) systems offer a promising solution by facilitating Sanskrit document discovery through English language queries, thereby democratizing access to ancient knowledge.
 
 Contemporary Sanskrit-English CLIR systems encounter several fundamental obstacles: (1) scarcity of parallel training corpora, (2) substantial linguistic divergence between classical Sanskrit and contemporary English, (3) intricate morphological and syntactic structures, and (4) requirements for deep cultural and contextual comprehension. Current zero-shot methodologies demonstrate limitations in capturing subtle semantic relationships within philosophical discourse, particularly for culturally-specific concepts such as "dharma" and "moksha" that embody profound cultural significance.
@@ -83,8 +81,6 @@ While recent CLIR developments have successfully employed neural architectures~\
 \section{Related Work}
 \label{sec:related}
 
-This section reviews existing neural CLIR approaches, Sanskrit computational linguistics research, parameter-efficient fine-tuning methods, and identifies gaps in cross-lingual ancient language processing that our work addresses.
-
 Modern neural CLIR approaches leveraging multilingual transformer models such as multilingual BERT~\cite{devlin2019bert} and XLM-RoBERTa~\cite{conneau2020unsupervised} have shown strong cross-lingual performance. Dense retrieval methods using contrastive learning~\cite{izacard2022contriever} and dense passage retrieval~\cite{karpukhin2020dense} have further advanced the field. Nevertheless, their effectiveness declines when applied to ancient languages with limited training resources. Recent studies have begun extending CLIR techniques to low-resource language families~\cite{ogundepo2022africlir}, while large-scale language models have enabled promising few-shot learning strategies~\cite{brown2020language}. Comprehensive benchmarks like BEIR~\cite{thakur2021beir} and MTEB~\cite{muennighoff2022mteb} have established evaluation standards for zero-shot information retrieval.
 
 In Sanskrit computational linguistics, notable advancements have emerged through energy-based approaches to word segmentation~\cite{krishna2021energy} and transformer-driven parsing frameworks~\cite{sandhan2022transformers}. Despite these developments, cross-lingual research on Sanskrit remains relatively underexplored. Parameter-efficient fine-tuning strategies, such as Low-Rank Adaptation (LoRA)~\cite{hu2021lora}, enable effective model specialization with low computational cost, making them highly suitable for processing ancient languages with limited resources. Recent advances in sentence embeddings~\cite{reimers2019sentence} and contrastive learning approaches~\cite{wang2022simcse} provide additional foundations for cross-lingual semantic understanding.
@@ -94,13 +90,9 @@ This research distinguishes itself by presenting a unified approach to Sanskrit-
 \section{Methodology}
 \label{sec:methodology}
 
-This section details our three-component framework: (1) cross-script knowledge transfer from Devanagari languages, (2) contextual prompting with large language models using Sanskrit-English exemplars, and (3) efficient model adaptation through LoRA fine-tuning.
-
 Our innovative zero-shot learning architecture for Sanskrit-English CLIR incorporates three synergistic components operating in coordination. The foundational system employs a multilingual transformer architecture (XLM-RoBERTa) as the base model, which is enhanced through cross-script knowledge transfer mechanisms that exploit linguistic commonalities between Sanskrit and related Devanagari script languages. This foundation is further strengthened by contextual multilingual prompting strategies utilizing large language models for semantic understanding, culminating in parameter-efficient optimization through targeted fine-tuning approaches.
 
 \subsection{Cross-Script Knowledge Transfer}
-
-This subsection describes our approach to leveraging Hindi, Marathi, and Nepali parallel data for Sanskrit understanding through Devanagari script standardization, semantic correspondence learning, and knowledge transfer mechanisms.
 
 \subsubsection{Devanagari Script Standardization}
 Our approach leverages the common Devanagari writing system shared across Sanskrit, Hindi, Marathi, and Nepali languages. The standardization pipeline systematically addresses three primary challenges: (1) variations in conjunct consonant representations across different languages, (2) inconsistencies in vowel diacritic markers, and (3) standardization of punctuation conventions. The normalization process operates through sequential transformation stages:
@@ -142,8 +134,6 @@ where $\beta$ regulates the transfer intensity and MLP represents a two-layer ne
 
 \subsection{Contextual Prompting with Large Language Models}
 
-This subsection presents our few-shot learning approach using carefully curated Sanskrit-English exemplars covering philosophical concepts like consciousness, dharma, and moksha to enhance cultural understanding in retrieval tasks.
-
 \subsubsection{Few-Shot Prompt Design}
 We design context-aware prompts that provide the language model with relevant Sanskrit–English examples. Each prompt follows a structured format:
 
@@ -182,8 +172,6 @@ where $E$ denotes the few-shot exemplars and the extraction mechanism employs re
 
 \subsection{Efficient Model Adaptation}
 
-This subsection explains our parameter-efficient fine-tuning strategy using Low-Rank Adaptation (LoRA), contrastive learning framework, and multi-component score integration to optimize Sanskrit-English retrieval performance.
-
 \subsubsection{LoRA Implementation}
 We deploy Low-Rank Adaptation targeting critical transformer architecture components. The LoRA configuration employs rank $r=16$, scaling parameter $\alpha=32$, and dropout probability $p=0.1$:
 
@@ -211,37 +199,8 @@ The final retrieval assessment integrates all components through adaptive weight
 
 where parameters $(\alpha, \beta, \gamma)$ are optimized during training via gradient descent with normalization constraints $\alpha + \beta + \gamma = 1$ and non-negativity constraints $\alpha, \beta, \gamma \geq 0$.
 
-\section{Research Methods}
-\label{sec:research_methods}
-
-This section outlines our experimental design with four configurations, data collection from the Anveshana dataset, evaluation methodology using standard IR metrics, and implementation details including computational resources and reproducibility measures.
-
-\subsection{Experimental Design}
-
-Our research methodology follows a systematic experimental design to evaluate the proposed Sanskrit-English CLIR framework. We employ a controlled experimental approach with multiple baseline comparisons to isolate the contribution of each component. The experimental design includes four primary configurations: (1) baseline XLM-RoBERTa without modifications, (2) cross-script transfer learning only, (3) few-shot learning only, and (4) the complete integrated framework.
-
-\subsection{Data Collection and Preprocessing}
-
-The Anveshana dataset serves as our primary evaluation corpus, containing 3,400 carefully curated Sanskrit-English query-document pairs extracted from Srimadbhagavatam. Data preprocessing involves multiple stages: (1) Sanskrit text normalization to handle various Devanagari script variations, (2) English query standardization and tokenization, (3) relevance annotation validation through expert review, and (4) train-validation-test split with stratified sampling to ensure balanced representation across different philosophical topics.
-
-For cross-script transfer learning, we collect parallel corpora from three Devanagari languages: Hindi (10,000 pairs), Marathi (5,000 pairs), and Nepali (3,000 pairs). These datasets undergo rigorous quality control including duplicate removal, length filtering, and semantic coherence validation.
-
-\subsection{Evaluation Methodology}
-
-We adopt standard information retrieval evaluation metrics including NDCG@k, MAP@k, Recall@k, and Precision@k at cutoff values k=1,3,5,10. Statistical significance testing employs paired t-tests with Bonferroni correction for multiple comparisons. Cross-validation uses 5-fold stratified sampling to ensure robust performance estimates.
-
-The evaluation protocol includes ablation studies to quantify individual component contributions, error analysis to identify failure modes, and computational efficiency measurements to assess practical deployment feasibility. All experiments are conducted with three random seeds to ensure reproducibility.
-
-\subsection{Implementation Details}
-
-The framework implementation utilizes PyTorch 1.12 with Transformers library 4.21. Base models include XLM-RoBERTa-base (278M parameters) for multilingual encoding and mBART-large-50 for few-shot prompting. LoRA adaptation employs rank-16 decomposition with α=32 and dropout=0.1. Training uses AdamW optimizer with learning rate 2e-5, batch size 16, and early stopping based on validation NDCG@10.
-
-Computational resources include NVIDIA A100 GPUs with 40GB memory. Training time ranges from 2-4 hours per configuration depending on component complexity. All code and data preprocessing scripts are made available for reproducibility.
-
 \section{Experiments}
 \label{sec:experiments}
-
-This section describes our implementation using PyTorch and Transformers, the Anveshana dataset with 3,400 Sanskrit-English pairs from Srimadbhagavatam, and evaluation setup with standard CLIR metrics across four system configurations.
 
 \subsection{Implementation}
 
@@ -257,8 +216,6 @@ We use standard CLIR metrics at $k=1,3,5,10$: NDCG@k (ranking quality), MAP@k (p
 
 \section{Results and Analysis}
 \label{sec:results}
-
-This section presents our experimental results showing 80.2% improvement over baseline, detailed performance analysis across different k values, component-wise ablation studies, cross-script transfer effectiveness, and few-shot learning optimization.
 
 \subsection{Main Results}
 
@@ -460,8 +417,6 @@ All Languages   & 18000 & \bfseries 0.4799 & \bfseries +47.9\% \\
 \section{Discussion}
 \label{sec:discussion}
 
-This section analyzes the effectiveness of cross-script transfer and few-shot learning, discusses synergistic effects between components, examines error patterns and limitations, and explores implications for digital humanities and cultural heritage preservation.
-
 Cross-script transfer's 47.9\% improvement validates leveraging Devanagari language similarities despite limited Sanskrit-English parallel data. The multi-source approach (Hindi+Marathi+Nepali) outperforms individual languages, confirming our hypothesis about complementary linguistic knowledge. Few-shot learning's 56.0\% gain highlights contextual understanding importance for philosophical concepts, with optimal performance at 5 examples.
 
 The combined 80.2\% improvement demonstrates synergistic effects beyond additive gains, indicating emergent capabilities from component interactions. Error analysis reveals challenges with technical terms (23\% accuracy), abstract concepts (31\% accuracy), and temporal contexts (18\% lower performance).
@@ -471,13 +426,9 @@ The combined 80.2\% improvement demonstrates synergistic effects beyond additive
 \section{Conclusion}
 \label{sec:conclusion}
 
-This section summarizes our key findings including 80.2% performance improvement, discusses the implications for ancient language processing, and outlines future research directions for expanding to other low-resource ancient languages and multi-modal applications.
-
 We present a novel Sanskrit-English CLIR framework combining cross-script transfer learning, multilingual prompting, and parameter-efficient fine-tuning. Key findings: (1) Cross-script transfer from Devanagari languages provides +47.9\% NDCG@10 improvement, (2) Few-shot learning captures philosophical nuances (+56.0\%), (3) LoRA reduces computational overhead by 80\%, and (4) Combined approach achieves +80.2\% improvement, establishing new ancient language CLIR benchmarks.
 
 Future work includes expanding to additional ancient languages, sophisticated few-shot strategies, multi-modal manuscript integration, and question-answering extensions. This framework provides a foundation for preserving and accessing cultural heritage through modern information retrieval technologies.
-
-\newpage
 
 \bibliographystyle{ACM-Reference-Format}
 \begin{thebibliography}{15}
@@ -525,5 +476,32 @@ Nandan Thakur, Nils Reimers, Andreas Rücklé, Abhishek Srivastava, and Iryna Gu
 Tianyu Gao, Xingcheng Yao, and Danqi Chen. 2021. SimCSE: Simple Contrastive Learning of Sentence Embeddings. In \textit{Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing}. 6894--6910.
 
 \end{thebibliography}
+
+\appendix
+
+\section{Research Methods}
+\label{sec:research_methods_appendix}
+
+\subsection{Experimental Design}
+
+Our research methodology follows a systematic experimental design to evaluate the proposed Sanskrit-English CLIR framework. We employ a controlled experimental approach with multiple baseline comparisons to isolate the contribution of each component. The experimental design includes four primary configurations: (1) baseline XLM-RoBERTa without modifications, (2) cross-script transfer learning only, (3) few-shot learning only, and (4) the complete integrated framework.
+
+\subsection{Data Collection and Preprocessing}
+
+The Anveshana dataset serves as our primary evaluation corpus, containing 3,400 carefully curated Sanskrit-English query-document pairs extracted from Srimadbhagavatam. Data preprocessing involves multiple stages: (1) Sanskrit text normalization to handle various Devanagari script variations, (2) English query standardization and tokenization, (3) relevance annotation validation through expert review, and (4) train-validation-test split with stratified sampling to ensure balanced representation across different philosophical topics.
+
+For cross-script transfer learning, we collect parallel corpora from three Devanagari languages: Hindi (10,000 pairs), Marathi (5,000 pairs), and Nepali (3,000 pairs). These datasets undergo rigorous quality control including duplicate removal, length filtering, and semantic coherence validation.
+
+\subsection{Evaluation Methodology}
+
+We adopt standard information retrieval evaluation metrics including NDCG@k, MAP@k, Recall@k, and Precision@k at cutoff values k=1,3,5,10. Statistical significance testing employs paired t-tests with Bonferroni correction for multiple comparisons. Cross-validation uses 5-fold stratified sampling to ensure robust performance estimates.
+
+The evaluation protocol includes ablation studies to quantify individual component contributions, error analysis to identify failure modes, and computational efficiency measurements to assess practical deployment feasibility. All experiments are conducted with three random seeds to ensure reproducibility.
+
+\subsection{Implementation Details}
+
+The framework implementation utilizes PyTorch 1.12 with Transformers library 4.21. Base models include XLM-RoBERTa-base (278M parameters) for multilingual encoding and mBART-large-50 for few-shot prompting. LoRA adaptation employs rank-16 decomposition with α=32 and dropout=0.1. Training uses AdamW optimizer with learning rate 2e-5, batch size 16, and early stopping based on validation NDCG@10.
+
+Computational resources include NVIDIA A100 GPUs with 40GB memory. Training time ranges from 2-4 hours per configuration depending on component complexity. All code and data preprocessing scripts are made available for reproducibility.
 
 \end{document}
