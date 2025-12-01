@@ -1,0 +1,48 @@
+# Core ML and NLP libraries
+torch>=2.0.0
+transformers>=4.30.0
+datasets>=2.12.0
+tokenizers>=0.13.0
+
+# Information Retrieval
+rank-bm25>=0.2.2
+faiss-cpu>=1.7.4
+scikit-learn>=1.3.0
+
+# Evaluation metrics
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Translation and language processing
+googletrans==4.0.0rc1
+langdetect>=1.0.9
+
+# Utilities
+tqdm>=4.65.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+pyyaml>=6.0
+wandb>=0.15.0
+
+# ColBERT specific
+colbert-ai>=0.2.19
+
+# REPLUG and related
+accelerate>=0.20.0
+bitsandbytes>=0.41.0
+
+# Additional utilities
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Advanced Zero-Shot Learning Dependencies
+peft>=0.4.0
+sentencepiece>=0.1.99
+protobuf>=3.20.0
+
+# Additional Multilingual Models
+# Note: Install specific models as needed:
+# pip install sentence-transformers
+# pip install sacremoses 

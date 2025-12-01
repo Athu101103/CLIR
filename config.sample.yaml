@@ -1,0 +1,12 @@
+# Sample configuration for Anveshana CLIR implementation
+# Copy this file to config.yaml and adjust settings as needed
+
+# Dataset Configuration
+dataset:
+  name: "manojbalaji1/anveshana"
+  train_split: 0.9
+  validation_split: 0.1
+  test_size: 340
+  negative_sampling_ratio: 2  # 2:1 negative to positive ratio
+
+# Model Configuratio
