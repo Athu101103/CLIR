@@ -39,28 +39,45 @@ anveshana_env/
 *.pickle
 
 # Data files (keep structure but exclude actual data)
-data/raw/
-data/processed/
-data/embeddings/
-data/translations/
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/embeddings/*
+!data/embeddings/.gitkeep
+data/translations/*
+!data/translations/.gitkeep
 
 # Experiment results and logs
-experiments/logs/
-experiments/runs/
+experiments/logs/*
+!experiments/logs/.gitkeep
+experiments/runs/*
+!experiments/runs/.gitkeep
+!experiments/runs/zs_experiments/
+!experiments/runs/zs_experiments/advanced_zs_results_20250820_235706.json
 *.log
 full_experiments_*.log
 
-# Results and outputs
-results/
+# Results and outputs (keep sample results)
+results/*
+!results/.gitkeep
+!results/sample_results.json
 outputs/
 *.csv
 *.json
-*.txt
+!experiments/configs/*.json
+!examples/*.json
+!examples/sample_output.json
 
-# Test files and temporary scripts
-test_*.py
+# Temporary scripts (keep test_setup.py)
 temp_*.py
 scratch_*.py
+
+# Personal files and notes
+*Progress_Report*
+*chat.md
+plagiarism_fixes.md
+quick_qt_test.py
 
 # Jupyter Notebooks checkpoints
 .ipynb_checkpoints
@@ -81,8 +98,7 @@ scratch_*.py
 ehthumbs.db
 Thumbs.db
 
-# Configuration files with sensitive data
-config.yaml
+# Configuration files with sensitive data (keep sample config)
 *.env
 .env.local
 .env.*.local
@@ -94,7 +110,6 @@ config.yaml
 *.blg
 *.fdb_latexmk
 *.fls
-*.log
 *.out
 *.synctex.gz
 *.toc
@@ -110,8 +125,10 @@ config.yaml
 *.acr
 *.alg
 
-# PDF outputs
+# PDF outputs (except paper)
 *.pdf
+!paper.pdf
+!research_paper.pdf
 
 # Temporary files
 *.tmp
@@ -135,3 +152,31 @@ coverage.xml
 .mypy_cache/
 .dmypy.json
 dmypy.json
+ 
+# Personal files and notes (added by fix script) 
+*Progress_Report* 
+*chat.md 
+plagiarism_fixes.md 
+quick_qt_test.py 
+QUALITY_CONTROL_ANALYSIS.md 
+
+# Personal files and notes
+*Progress_Report*
+*chat.md
+plagiarism_fixes.md
+quick_qt_test.py
+QUALITY_CONTROL_ANALYSIS.md
+2505.19494v1.txt
+2505.19494v1.pdf
+papers_trials/
+
+# Analysis documents (local only)
+CODEBASE_ANALYSIS_SUMMARY.md
+DATASET_INFORMATION.md
+FILES_TO_PUSH_TO_GITHUB.txt
+FILE_RELATIONSHIP_DIAGRAM.txt
+FIX_GITHUB_REPOSITORY.*
+GITHUB_REPOSITORY_AUDIT.md
+GIT_PUSH_INSTRUCTIONS.md
+QUICK_REFERENCE.txt
+RESEARCH_PAPER_FILES_ANALYSIS.md
